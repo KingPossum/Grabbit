@@ -8,7 +8,9 @@ A Mass media downloader for Windows, dependent on [youtube-dl](https://github.co
 # HOW TO USE
 If you are downloading more than one video or song(bandcamp album, youtube playlist, youtube channels), select Download Playlist.
 A popout menu will appear.<br/>
+
 If you would like to queue MULTIPLE downloads (downloading multiple youtube playlists, bandcamp albums), put , COMMAS between every URL. To name the folder it will be saved to, enter the name of the folder you wish to create in [] SQUARE BRACKETS.<br/>
+
 Here's an example of two albums queued up to download:<br/>
 `https://sampathegreat.bandcamp.com/album/rhymes-to-the-east[Rhymes to the east],
 https://sampathegreat.bandcamp.com/album/the-return[The Return]`
