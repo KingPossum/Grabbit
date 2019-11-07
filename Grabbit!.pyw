@@ -14,6 +14,7 @@ import webbrowser
 import requests
 import random
 import string
+import re
 
 from tkinter import filedialog
 from tkinter import messagebox
@@ -113,25 +114,41 @@ class MainWindow:
                     del commands[-1]
                     
                 for entry in link:
-                    if len(link) == 0 or button == "JV" or button == "JM":
-                        StartDL(entry)
-                    if len(link) > 0 and button != "JV" and button !="JM":
-                        tempVal = TheRoot + "/" + "download " + str(counter) + "-"+ ''.join(random.choice(string.ascii_letters) for x in range(5))
-                        del folders[:]
-                        if not os.path.exists(tempVal):
+                    
+                    if filenames:
+                        theFolder = TheRoot + "/" + filenames[0]
+                        if not os.path.exists(theFolder):
+                            os.makedirs(theFolder)
                             del folders[:]
-                            folders.append(tempVal)
-                            os.makedirs(folders[0])
-                            StartDL(entry)
-                            counter+=1
-                        else:
-                            tempVal = TheRoot + "/" + "download " + str(counter) + "-"+ ''.join(random.choice(string.ascii_letters) for x in range(5))
-                            del folders[:]
-                            os.makedirs(folders[0])
-                            StartDL(entry)
+                            folders.append(theFolder)
+                            del filenames[0]
+                            
+                    StartDL(entry)
+##                    if len(link) == 0 or button == "JV" or button == "JM":
+##                        StartDL(entry)
+##                    if len(link) > 0 and button != "JV" and button !="JM":
+##                        tempVal = TheRoot + "/" + "download " + str(counter) + "-"+ ''.join(random.choice(string.ascii_letters) for x in range(5))
+##                        del folders[:]
+##                        if not os.path.exists(tempVal):
+##                            del folders[:]
+##                            folders.append(tempVal)
+##                            os.makedirs(folders[0])
+##                            StartDL(entry)
+##                            counter+=1
+##                        else:
+##                            tempVal = TheRoot + "/" + "download " + str(counter) + "-"+ ''.join(random.choice(string.ascii_letters) for x in range(5))
+##                            del folders[:]
+##                            os.makedirs(folders[0])
+##                            StartDL(entry)
 
             link = self.UrlBox.get()
+            link = re.sub(r"\[(.*?)\]","",link)
+
             link = link.split(",")
+
+            olink = self.UrlBox.get()
+            filenames = re.findall(r"\[(.*?)\]",olink)
+                
             startupinfo = None
             if os.name == 'nt':
                 startupinfo = subprocess.STARTUPINFO()
@@ -734,8 +751,3 @@ def _on_shiftmouse(event, widget):
 
 if __name__ == '__main__':
     vp_start_gui()
-
-
-
-
-
